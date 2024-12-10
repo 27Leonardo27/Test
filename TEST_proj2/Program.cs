@@ -1,52 +1,74 @@
 ﻿using System.Diagnostics;
 
-namespace TEST_proj2
+namespace TEST_proj2;
+
+internal class Program  
 {
-    internal class Program  //Генератор пароля 
+    static void Main(string[] args)  //Генератор пароля 
     {
-        static void Main(string[] args)
+        do 
         {
-            do
+            Console.Write("\n\nEnter '1' for continue or '2' for exit: ");
+
+            switch (Console.ReadLine())
             {
-                Console.Write("\n\nEnter '1' for continue or '2' for exit: ");
+                case "1":
+                    {
+                        Console.Write("Enter your Login: ");
+                        Console.ReadLine();
 
-                switch (Console.ReadLine())
-                {
-                    case "1":
+                        Console.Write("Do you want to use lowercase letters? Enter '1' for YES or '2' for NO: ");
+                        if(Console.ReadLine() == "1")
                         {
-
-                            Console.Write("Enter your Login: ");
-                            Console.ReadLine();
-
-                            Console.Write("Enter your password lenght: ");
-                            var length = int.Parse(Console.ReadLine());
-
-                            string password = PasswordGenerator.GetPassword(length);
-
-                            Console.Write("==============================\nYour password is:       ");
-                            Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.Write(password);
-                            Console.ResetColor();
-                            Console.WriteLine("\n==============================");
-                            break;
+                            PasswordGenerator.chars += "abcdefgehjkuytropzxcvbnml";
                         }
-                    case "2":
+                        
+                        Console.Write("Do you want to use uppercase letters? Enter '1' for YES or '2' for NO: ");
+                        if(Console.ReadLine() == "1")
                         {
-                            return;
+                            PasswordGenerator.chars += "ABCDEFGEHJKUYTROPZXCVBNML";
                         }
-                }
+                       
+                        Console.Write("Do you want to use numbers? Enter '1' for YES or '2' for NO: ");
+                        if( Console.ReadLine() == "1")
+                        {
+                            PasswordGenerator.chars += "1234567890";
+                        }
 
+                        Console.Write("Do you want to use symbols? Enter '1' for YES or '2' for NO: ");
+                        if(Console.ReadLine() == "1")
+                        {
+                            PasswordGenerator.chars += "%&!=*#?@";
+                        }
+
+                        Console.Write("Enter your password lenght: ");
+                        var length = int.Parse(Console.ReadLine());
+
+                        string password = PasswordGenerator.GetPassword(length);
+
+                        Console.Write("==============================\nYour password is:       ");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write(password);
+                        Console.ResetColor();
+                        Console.WriteLine("\n==============================");
+                        break;
+                    }
+                case "2":
+                    {
+                        return;
+                    }
             }
 
-            while (true);
         }
+        while (true);
     }
 }
 
 
+
 class PasswordGenerator
 {
-    static string chars = "abcdefgehjkuytropzxcvbnmlABCDEFGEHJKUYTROPZXCVBNML%&!=*#?1234567890";
+    public static string chars = "";
 
     public static string GetPassword(int length)
     {
